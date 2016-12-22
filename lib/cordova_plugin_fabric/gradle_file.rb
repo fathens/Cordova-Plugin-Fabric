@@ -9,7 +9,6 @@ def modify_gradle(target_file, api_key, api_secret)
     log_header "Rewriting #{target_file}"
     file_tmp = "#{target_file}.tmp"
 
-    srcdirs = true
     plugin = true
     classpath = true
 
@@ -22,10 +21,6 @@ def modify_gradle(target_file, api_key, api_secret)
                 }
                 if line =~ /^\s*mavenCentral()/
                     add_line.call "maven { url 'https://maven.fabric.io/public' }"
-                end
-                if srcdirs && line =~ /java\.srcDirs/
-                    add_line.call "kotlin.srcDirs = ['kotlin']"
-                    srcdirs = false
                 end
                 if plugin && line =~ /apply plugin:/
                     add_line.call "apply plugin: 'io.fabric'"
