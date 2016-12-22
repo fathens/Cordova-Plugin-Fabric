@@ -16,7 +16,8 @@
             <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
         </config-file>
 
-        <hook type="after_prepare" src="platforms/android/hooks/after_prepare.rb"/>
+        <hook type="after_plugin_install" src="platforms/android/hooks/after_plugin_install.rb"/>
+        <hook type="before_prepare" src="platforms/android/hooks/before_prepare.rb"/>
     </platform>
 
     <platform name="ios">
@@ -40,6 +41,6 @@
             <pod name="Fabric" />
         </podfile>
 
-        <hook type="after_prepare" src="platforms/ios/hooks/after_prepare.rb"/>
+        <hook type="before_prepare" src="platforms/ios/hooks/before_prepare.rb"/>
     </platform>
 </plugin>
