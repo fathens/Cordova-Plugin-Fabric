@@ -2,9 +2,9 @@
 
 require 'xcodeproj'
 
-Dir.chdir Pathname.pwd/'platforms'/'ios').realpath
+$PLATFORM_DIR = Pathname.pwd.realpath/'platforms'/'ios'
 
-project = Xcodeproj::Project.open(Pathname.glob('*.xcodeproj').first)
+project = Xcodeproj::Project.open(Pathname.glob($PLATFORM_DIR/'*.xcodeproj').first)
 
 project.targets.each { |target|
     title = 'Fabric Submission'
