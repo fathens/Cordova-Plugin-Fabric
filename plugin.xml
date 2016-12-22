@@ -16,7 +16,7 @@
             <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
         </config-file>
 
-        <hook type="after_plugin_install" src="platforms/android/hooks/after_plugin_install.rb"/>
+        <hook type="after_prepare" src="platforms/android/hooks/after_prepare.rb"/>
     </platform>
 
     <platform name="ios">
