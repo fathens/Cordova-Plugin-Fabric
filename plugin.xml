@@ -12,6 +12,8 @@
     <preference name="API_KEY" />
 
     <platform name="android">
+        <dependency id="org.fathens.cordova.plugin.lang.Kotlin" url="https://github.com/fathens/Cordova-Plugin-Kotlin.git" commit="master" />
+
         <config-file target="AndroidManifest.xml" parent="application">
             <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
         </config-file>
@@ -21,6 +23,8 @@
     </platform>
 
     <platform name="ios">
+        <dependency id="org.fathens.cordova.plugin.lang.Swift" url="https://github.com/fathens/Cordova-Plugin-Swift.git" commit="master" />
+
         <config-file target="*-Info.plist" parent="Fabric">
             <dict>
                 <key>APIKey</key>
