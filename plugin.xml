@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="org.fathens.cordova.plugin.Fabric" version="0.2.0" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="org.fathens.cordova.plugin.fabric.Base" version="0.2.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Fabric</name>
     <description>Cordova Plugin for Fabric</description>
     <license>MIT</license>
@@ -12,35 +12,52 @@
     <preference name="API_KEY" />
 
     <platform name="android">
+        <dependency id="org.fathens.cordova.plugin.lang.Kotlin" url="https://github.com/fathens/Cordova-Plugin-Kotlin.git" commit="master" />
+
         <config-file target="AndroidManifest.xml" parent="application">
             <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
         </config-file>
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="FabricBasePlugin">
+                <param name="android-package" value="org.fathens.cordova.plugin.fabric.FabricBase"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <source-file src="platforms/android/src/main/kotlin/FabricBase.kt" target-dir="kotlin/org.fathens.cordova.plugin.fabric"/>
 
         <hook type="after_plugin_install" src="platforms/android/hooks/after_plugin_install.rb"/>
         <hook type="before_prepare" src="platforms/android/hooks/before_prepare.rb"/>
     </platform>
 
     <platform name="ios">
+        <dependency id="org.fathens.cordova.plugin.lang.Swift" url="https://github.com/fathens/Cordova-Plugin-Swift.git" commit="master" />
+
         <config-file target="*-Info.plist" parent="Fabric">
             <dict>
                 <key>APIKey</key>
                 <string>$API_KEY</string>
                 <key>Kits</key>
                 <array>
-                    <dict>
-                        <key>KitInfo</key>
-                        <dict/>
-                        <key>KitName</key>
-                        <string>Crashlytics</string>
-                    </dict>
                 </array>
             </dict>
         </config-file>
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="FabricBasePlugin">
+                <param name="ios-package" value="FabricBase"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <source-file src="platforms/ios/src/FabricBase.swift"/>
 
         <podfile swift_version="3.0">
             <pod name="Fabric" />
         </podfile>
 
         <hook type="before_prepare" src="platforms/ios/hooks/before_prepare.rb"/>
+        <hook type="after_prepare" src="platforms/ios/hooks/after_prepare.rb"/>
     </platform>
 </plugin>
