@@ -33,7 +33,9 @@ module Fabric
         end
 
         def imports
-            @imports = @element.get_elements('//import').map(&:text).compact
+            @imports = @element.get_elements('//import').map(&:text).compact.map { |t|
+                "import #{t}"
+            }
         end
 
         def instances
