@@ -18,6 +18,15 @@
             <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
         </config-file>
 
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="FabricBasePlugin">
+                <param name="android-package" value="org.fathens.cordova.plugin.fabric.FabricBase"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <source-file src="platforms/android/src/main/kotlin/FabricBase.kt" target-dir="kotlin/org.fathens.cordova.plugin.fabric"/>
+
         <hook type="after_plugin_install" src="platforms/android/hooks/after_plugin_install.rb"/>
         <hook type="before_prepare" src="platforms/android/hooks/before_prepare.rb"/>
     </platform>
