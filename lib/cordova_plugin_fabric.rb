@@ -1,4 +1,6 @@
 require_relative 'cordova_plugin_fabric/gradle_file'
+require_relative 'cordova_plugin_fabric/fabric_kits'
+require_relative 'cordova_plugin_fabric/modify_code'
 
 def log(msg)
     puts msg
