@@ -17,29 +17,28 @@ module Fabric
         end
 
         def imports
-            @imports = @kits.map { |kit| kit.imports }.flatten.uniq
+            @imports ||= @kits.map { |kit| kit.imports }.flatten.uniq
         end
 
         def instances
-            @instances = @kits.map { |kit| kit.instances }.flatten.uniq
+            @instances ||= @kits.map { |kit| kit.instances }.flatten.uniq
+        end
         end
     end
 
     class Kit
-        attr_accessor :imports, :instances
-
         def initialize(element)
             @element = element
         end
 
         def imports
-            @imports = @element.get_elements('import').map(&:text).compact.map { |t|
+            @imports ||= @element.get_elements('import').map(&:text).compact.map { |t|
                 "import #{t}"
             }
         end
 
         def instances
-            @instances = @element.get_elements('instance').map(&:text).compact
+            @instances ||= @element.get_elements('instance').map(&:text).compact
         end
     end
 end
