@@ -23,12 +23,23 @@ module Fabric
         def instances
             @instances ||= @kits.map { |kit| kit.instances }.flatten.uniq
         end
+
+        def each(&block)
+            @kits.each { |x| block.call(x) }
         end
     end
 
     class Kit
         def initialize(element)
             @element = element
+        end
+
+        def name
+            @name ||= @element.attributes['name']
+        end
+
+        def infos
+            @infos ||= @element.get_elements('info')
         end
 
         def imports
