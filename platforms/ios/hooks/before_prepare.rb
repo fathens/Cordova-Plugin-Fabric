@@ -2,6 +2,7 @@
 
 require 'xcodeproj'
 require 'rexml/document'
+require_relative '../../../lib/cordova_plugin_fabric'
 
 def add_submission(base_dir)
     project = Xcodeproj::Project.open(Pathname.glob(base_dir/'*.xcodeproj').first)
@@ -38,21 +39,10 @@ def remove_answers(base_dir, platform)
     xml.write(output: File.open(pluginxml, 'w'), indent: 4)
     puts "Removed 'Answers' from pods"
 
-    Pathname.glob(platform/'*'/'Plugins'/'org.fathens.cordova.plugin.fabric.Answers'/'**'/'*.swift').each { |file_src|
-        file_tmp = "#{file_src}.tmp"
-        File.open(file_src, 'r') { |src|
-            File.open(file_tmp, 'w') { |dst|
-                src.each_line { |line|
-                    if line =~ /^import Answers$/
-                        puts "Replacing import 'Answers' to 'Crashlytics'"
-                        dst.puts "import Crashlytics"
-                    else
-                        dst.puts line
-                    end
-                }
-            }
+    Pathname.glob(platform/'*'/'Plugins'/'org.fathens.cordova.plugin.fabric.Answers'/'**'/'*.swift').each { |file|
+        Fabric::modify_line file, {
+            /^import Answers$/ => "import Crashlytics"
         }
-        File.rename file_tmp, file_src
     }
 end
 
@@ -61,3 +51,11 @@ $PLATFORM_DIR = $PROJECT_DIR/'platforms'/'ios'
 
 add_submission $PLATFORM_DIR
 remove_answers $PROJECT_DIR, $PLATFORM_DIR
+
+kits = Fabric::Kits.new('ios', $PROJECT_DIR)
+Pathname.glob($PLATFORM_DIR/'*'/'Plugins'/'org.fathens.cordova.plugin.fabric.Base'/'FabricBase.swift').each { |file|
+    Fabric::modify_line file, {
+        /^\/\/\s*import\s*Kits$/ => kits.imports,
+        /^\s*\/\/\s*Kits*$/ => kits.instances.join(', ')
+    }
+}
