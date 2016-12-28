@@ -24,35 +24,10 @@ def add_submission(base_dir)
     project.save
 end
 
-def remove_answers(base_dir, platform)
-    return unless (base_dir/'plugins'/'org.fathens.cordova.plugin.fabric.Crashlytics'/'plugin.xml').exist?
-
-    pluginxml = base_dir/'plugins'/'org.fathens.cordova.plugin.fabric.Answers'/'plugin.xml'
-    return unless pluginxml.exist?
-
-    xml = REXML::Document.new(File.open(pluginxml))
-    xml.get_elements('//platform[@name="ios"]/podfile').each { |podfile|
-        podfile.get_elements('pod[@name="Answers"]').each { |pod|
-            log "Deleting pod: #{pod}"
-            podfile.delete_element pod
-        }
-    }
-    File.open(pluginxml, 'w') { |dst|
-        xml.write dst
-    }
-
-    Pathname.glob(platform/'*'/'Plugins'/'org.fathens.cordova.plugin.fabric.Answers'/'**'/'*.swift').each { |file|
-        Fabric::modify_line file, {
-            /^import Answers$/ => "import Crashlytics"
-        }
-    }
-end
-
 $PROJECT_DIR = Pathname.pwd.realpath
 $PLATFORM_DIR = $PROJECT_DIR/'platforms'/'ios'
 
 add_submission $PLATFORM_DIR
-remove_answers $PROJECT_DIR, $PLATFORM_DIR
 
 kits = Fabric::Kits.new('ios', $PROJECT_DIR)
 
