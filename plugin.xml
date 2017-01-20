@@ -9,13 +9,13 @@
         <engine name="cordova-ios" version=">=3.9.0" />
     </engines>
 
-    <preference name="API_KEY" />
+    <preference name="FABRIC_API_KEY" />
 
     <platform name="android">
         <dependency id="org.fathens.cordova.plugin.lang.kotlin" url="https://github.com/fathens/cordova-plugin-kotlin.git" commit="master" />
 
         <config-file target="AndroidManifest.xml" parent="application">
-            <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
+            <meta-data android:name="io.fabric.ApiKey" android:value="$FABRIC_API_KEY"/>
         </config-file>
 
         <config-file parent="/*" target="res/xml/config.xml">
@@ -37,7 +37,7 @@
         <config-file target="*-Info.plist" parent="Fabric">
             <dict>
                 <key>APIKey</key>
-                <string>$API_KEY</string>
+                <string>$FABRIC_API_KEY</string>
                 <key>Kits</key>
                 <array>
                 </array>
