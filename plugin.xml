@@ -53,9 +53,9 @@
 
         <source-file src="platforms/ios/src/FabricBase.swift"/>
 
-        <podfile swift_version="3.0">
-            <pod name="Fabric" />
-        </podfile>
+        <framework src="Fabric" type="podspec" spec="~> 2.4.16">
+            <bridging-header import="Fabric/Fabric.h" />
+        </framework>
 
         <hook type="after_prepare" src="platforms/ios/hooks/after_prepare.rb"/>
     </platform>
