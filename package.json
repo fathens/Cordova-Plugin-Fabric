@@ -1,0 +1,26 @@
+{
+  "name": "cordova-plugin-fabric-core",
+  "version": "0.4.1",
+  "description": "Cordova Plugin for Fabric (Core)",
+  "main": "dist/index.js",
+  "typings": "dist/index",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "postinstall": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fathens/cordova-plugin-fabric-core.git"
+  },
+  "author": "f:athens",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "~2.0.10"
+  },
+  "peerDependencies": {
+    "typescript": "~2.0.10"
+  }
+}
