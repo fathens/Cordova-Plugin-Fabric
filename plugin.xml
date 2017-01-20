@@ -53,7 +53,7 @@
 
         <source-file src="platforms/ios/src/FabricBase.swift"/>
 
-        <framework src="Fabric" type="podspec">
+        <framework src="Fabric" type="podspec" spec="~> 1.6.11">
             <bridging-header import="Fabric/Fabric.h" />
         </framework>
 
