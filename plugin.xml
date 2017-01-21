@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="org.fathens.cordova.plugin.fabric.Base" version="0.4.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="org.fathens.cordova.plugin.fabric.core" version="0.4.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Fabric</name>
     <description>Cordova Plugin for Fabric</description>
     <license>MIT</license>
@@ -9,13 +9,13 @@
         <engine name="cordova-ios" version=">=3.9.0" />
     </engines>
 
-    <preference name="API_KEY" />
+    <preference name="FABRIC_API_KEY" />
 
     <platform name="android">
-        <dependency id="org.fathens.cordova.plugin.lang.Kotlin" url="https://github.com/fathens/Cordova-Plugin-Kotlin.git" commit="master" />
+        <dependency id="org.fathens.cordova.plugin.lang.kotlin" url="https://github.com/fathens/cordova-plugin-kotlin.git" commit="master" />
 
         <config-file target="AndroidManifest.xml" parent="application">
-            <meta-data android:name="io.fabric.ApiKey" android:value="$API_KEY"/>
+            <meta-data android:name="io.fabric.ApiKey" android:value="$FABRIC_API_KEY"/>
         </config-file>
 
         <config-file parent="/*" target="res/xml/config.xml">
@@ -32,12 +32,12 @@
     </platform>
 
     <platform name="ios">
-        <dependency id="org.fathens.cordova.plugin.lang.Swift" url="https://github.com/fathens/Cordova-Plugin-Swift.git" commit="master" />
+        <dependency id="org.fathens.cordova.plugin.lang.swift" url="https://github.com/fathens/cordova-plugin-swift.git" commit="master" />
 
         <config-file target="*-Info.plist" parent="Fabric">
             <dict>
                 <key>APIKey</key>
-                <string>$API_KEY</string>
+                <string>$FABRIC_API_KEY</string>
                 <key>Kits</key>
                 <array>
                 </array>
@@ -53,9 +53,9 @@
 
         <source-file src="platforms/ios/src/FabricBase.swift"/>
 
-        <podfile swift_version="3.0">
-            <pod name="Fabric" />
-        </podfile>
+        <framework src="Fabric" type="podspec" spec="~> 1.6.11">
+            <bridging-header import="Fabric/Fabric.h" />
+        </framework>
 
         <hook type="after_prepare" src="platforms/ios/hooks/after_prepare.rb"/>
     </platform>
