@@ -31,7 +31,7 @@ add_submission $PLATFORM_DIR
 
 kits = Fabric::Kits.new('ios', $PROJECT_DIR)
 
-Pathname.glob($PLATFORM_DIR/'*'/'Plugins'/'org.fathens.cordova.plugin.fabric.Base'/'FabricBase.swift').each { |file|
+Pathname.glob($PLATFORM_DIR/'*'/'Plugins'/'org.fathens.cordova.plugin.fabric.core'/'FabricBase.swift').each { |file|
     Fabric::modify_line file, {
         /^\/\/\s*import\s*Kits$/ => kits.imports,
         /^\s*\/\/\s*Kits*$/ => kits.instances.join(', ')
