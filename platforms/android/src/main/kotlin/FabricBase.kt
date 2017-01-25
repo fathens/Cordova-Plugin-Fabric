@@ -7,9 +7,11 @@ import io.fabric.sdk.android.Fabric
 
 public class FabricBase : CordovaPlugin() {
     override fun pluginInitialize() {
-        val metaData = cordova.activity.packageManager.getApplicationInfo(cordova.activity.packageName, PackageManager.GET_META_DATA).metaData
-        Fabric.with(cordova.activity.applicationContext,
-            // Kits
-        )
+        cordova.threadPool.execute {
+            val metaData = cordova.activity.packageManager.getApplicationInfo(cordova.activity.packageName, PackageManager.GET_META_DATA).metaData
+            Fabric.with(cordova.activity.applicationContext,
+                // Kits
+            )
+        }
     }
 }
